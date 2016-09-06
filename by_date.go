@@ -1,6 +1,6 @@
 package main
 
-type ByDate []Result
+type ByDate []*Result
 
 
 func (a ByDate) Len() int {

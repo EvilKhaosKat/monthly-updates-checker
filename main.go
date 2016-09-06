@@ -8,6 +8,7 @@ import (
 	"sync"
 	"strconv"
 	"fmt"
+	"sort"
 )
 
 const Dir = "files"
@@ -54,6 +55,8 @@ func main() {
 
 func analyzeResults(resultsChan chan *Result) {
 	results := getResultsSlice(resultsChan)
+	sort.Sort(ByDate(results))
+
 	fmt.Println(results)
 }
 
