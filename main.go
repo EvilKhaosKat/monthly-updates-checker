@@ -91,6 +91,8 @@ func getResultsSlice(resultsChan chan *Result) []*Result {
 	return results
 }
 
+//Searches for .xls files in special directory (currently 'files').
+//Files suppose to have format 'Year.Month.xls', for instance '11.12.xls'
 func getSuitableFiles() []os.FileInfo {
 	var suitableFiles []os.FileInfo
 
