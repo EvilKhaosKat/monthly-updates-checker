@@ -2,7 +2,6 @@ package main
 
 type ByDate []*Result
 
-
 func (a ByDate) Len() int {
 	return len(a)
 }
