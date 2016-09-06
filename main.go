@@ -55,9 +55,27 @@ func main() {
 
 func analyzeResults(resultsChan chan *Result) {
 	results := getResultsSlice(resultsChan)
-	sort.Sort(ByDate(results))
+	results = fillUpdateAndDelta(results)
 
-	fmt.Println(results)
+	for _, result := range results{
+		fmt.Println(result)
+	}
+}
+func fillUpdateAndDelta(results []*Result) []*Result {
+	for i := 0; i < len(results) - 1; i++ {
+		current := results[i]
+		next := results[i+1]
+
+		currentValue := current.value
+		nextValue := next.value
+
+		if currentValue != nextValue {
+			next.updated = true
+			next.delta = nextValue - currentValue
+		}
+	}
+
+	return results
 }
 
 func getResultsSlice(resultsChan chan *Result) []*Result {
@@ -67,6 +85,8 @@ func getResultsSlice(resultsChan chan *Result) []*Result {
 	for i := 0; i < resultsLen; i++ {
 		results[i] = <-resultsChan
 	}
+
+	sort.Sort(ByDate(results))
 
 	return results
 }
